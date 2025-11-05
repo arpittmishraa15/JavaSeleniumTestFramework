@@ -13,3 +13,8 @@ apply from:'dependencies.gradle'
 test {
     useJUnitPlatform()
 }
+
+tasks.withType(Test).configureEach {
+    useJUnit()
+    systemProperty "cucumber.options", System.getProperty("cucumber.options", "")
+}

@@ -11,6 +11,15 @@ import java.io.File;
 
 public class SeleniumComponents {
 
+
+    public void explicitWait(int timeInSeconds){
+        try{
+            Thread.sleep(timeInSeconds*1000);
+        }catch (InterruptedException e){
+            Thread.currentThread().interrupt();
+        }
+    }
+
     public void clickElement(By locator) {
         WaitUtil.waitForElementToBeClickable(DriverFactory.getDriver(), locator);
         DriverFactory.getDriver().findElement(locator).click();
@@ -42,6 +51,34 @@ public class SeleniumComponents {
         dropdown.selectByVisibleText(visibleText);
     }
 
+
+    /**
+     * force click
+     */
+    public static void fireClick(By locator){
+        WebElement element= DriverFactory.getDriver().findElement(locator);
+        ((JavascriptExecutor) DriverFactory.getDriver()).executeScript("arguments[0].click();", element);
+    }
+
+
+    public void selectFromDropdown(By locator, String selectionType, String value){
+        WaitUtil.waitForElementToBeVisible(DriverFactory.getDriver(), locator);
+        Select dropdown=new Select(DriverFactory.getDriver().findElement(locator));
+        switch(selectionType.toLowerCase()){
+            case "text":
+                dropdown.selectByVisibleText(value);
+                break;
+            case "index":
+                dropdown.selectByIndex(Integer.parseInt(value));
+                break;
+            case "value":
+                dropdown.selectByValue(value);
+                break;
+
+            default:
+                throw new IllegalArgumentException("Inavlid selection type. use 'text', 'value' or 'index'." );
+        }
+    }
     //  Accept Alert
     public void acceptAlert() {
         DriverFactory.getDriver().switchTo().alert().accept();
