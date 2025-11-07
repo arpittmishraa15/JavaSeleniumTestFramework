@@ -53,8 +53,8 @@ public class DriverFactory {
                     Map<String, Object> sauceOptions = new HashMap<>();
                     sauceOptions.put("username", ConfigUtil.getProp("sauce.user"));
                     sauceOptions.put("accessKey", ConfigUtil.getProp("sauce.AccessKey"));
-                    sauceOptions.put("build", "<your build id>");
-                    sauceOptions.put("name", "<your test name>");
+                    String testName=TestContext.getTestName();
+                    sauceOptions.put("name",testName );
                     browserOptions.setCapability("sauce:options", sauceOptions);
                     newDriver = new RemoteWebDriver(new URL(ConfigUtil.getProp("sauce.url")), browserOptions);
                     break;

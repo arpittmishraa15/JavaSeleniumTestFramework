@@ -16,6 +16,8 @@ import static io.restassured.RestAssured.given;
 
 public class APIRequests {
 
+
+    public static String response1;
     // GET Request Example
     public static Response  getRequest() {
         System.out.println("---- GET Request ----");
@@ -30,6 +32,7 @@ public class APIRequests {
                 .body("size()", greaterThan(0))
                 .extract().response();
 
+        response1= String.valueOf(response);
         System.out.println("GET Response: " + response.asPrettyString());
         return response;
     }
