@@ -1,28 +1,47 @@
 pipeline {
     agent any
+
     tools {
         jdk 'jdk21'
         gradle 'gradle8'
     }
+
+
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
+                git branch: 'master',
                     url: 'https://github.com/arpittmishraa15/JavaSeleniumTestFramework.git',
                     credentialsId: 'github-token'
             }
         }
 
-        stage('Build') {
+        stage('Build & Test') {
             steps {
-                bat 'gradlew clean build'
+                bat './gradlew clean test'
             }
         }
 
-        stage('Run Tests') {
+        stage('Archive Reports') {
             steps {
-                bat 'gradlew test'
+                // Archive HTML & JSON reports
+                archiveArtifacts artifacts: 'src/test/resources/cucumber-reports/**/*', fingerprint: true
             }
+        }
+
+        stage('Publish Cucumber Report') {
+            steps {
+                cucumber buildStatus: 'UNSTABLE',
+                         fileIncludePattern: 'src/test/resources/cucumber-reports/cucumber.json',
+                         sortingMethod: 'ALPHABETICAL',
+                         trendsLimit: 10
+            }
+        }
+    }
+    post {
+        always {
+            junit '**/build/test-results/test/*.xml'
+            archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
         }
     }
 }
