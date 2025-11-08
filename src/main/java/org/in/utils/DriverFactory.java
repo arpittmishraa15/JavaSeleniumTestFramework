@@ -14,9 +14,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DriverFactory {
+public abstract  class  DriverFactory {
 
-    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    protected  static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
 
     public static WebDriver getDriver() {
@@ -26,7 +26,7 @@ public class DriverFactory {
         return driver.get();
     }
 
-    private static WebDriver initializeDriver() {
+    protected  static WebDriver initializeDriver() {
         WebDriver newDriver = null;
         String runMode = ConfigUtil.getProp("run.mode");
         LogUtil.info(runMode);
