@@ -18,6 +18,5 @@ import org.junit.platform.suite.api.*;
         key = io.cucumber.junit.platform.engine.Constants.FILTER_TAGS_PROPERTY_NAME,
         value = ""
 ) // Tag you want to run
-//@ExtendWith(RetryExtension.class)
 public class TestRunner {
 }
