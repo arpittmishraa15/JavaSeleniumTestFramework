@@ -1,6 +1,7 @@
 package org.in.base;
 
 import org.in.utils.DriverFactory;
+import org.in.utils.LogUtil;
 import org.in.utils.WaitUtil;
 import org.in.utils.WindowFrameUtils;
 import org.openqa.selenium.*;
@@ -26,29 +27,52 @@ public class SeleniumComponents {
     }
 
     public void clickElement(By locator) {
-        WaitUtil.waitForElementToBeClickable(driver, locator);
-        driver.findElement(locator).click();
+        try {
+            WaitUtil.waitForElementToBeClickable(driver, locator);
+            driver.findElement(locator).click();
+            LogUtil.info("Clicked element: " + locator);
+        } catch (Exception e) {
+            LogUtil.error("Failed to click element: " + locator);
+            throw new RuntimeException("Click failed on: " + locator, e); // ❗Fail test
+        }
     }
 
     // Send keys
     public void sendKeysToElement(By locator, String text) {
-        WaitUtil.waitForElementToBeVisible(driver, locator);
-        WebElement element = driver.findElement(locator);
-        element.clear();
-        element.sendKeys(text);
+        try {
+            WaitUtil.waitForElementToBeVisible(driver, locator);
+            WebElement element = driver.findElement(locator);
+            element.clear();
+            element.sendKeys(text);
+            LogUtil.info("send keys to element: " + locator);
+        }catch (Exception e) {
+            LogUtil.error("Failed to send keys to element: " + locator);
+            throw new RuntimeException("send keys  failed on: " + locator, e); // ❗Fail test
+        }
+
     }
 
     public void clearElement(By locator) {
+        try {
         WaitUtil.waitForElementToBeVisible(driver, locator);
         driver.findElement(locator).clear();
+        }catch (Exception e) {
+            LogUtil.error("Failed to clear element to element: " + locator);
+            throw new RuntimeException("clear element failed on: " + locator, e); // ❗Fail test
+        }
     }
 
     //  Get text
-    public String getElementText(By locator) {
-        WaitUtil.waitForElementToBeVisible(driver, locator);
-        return driver.findElement(locator).getText();
-    }
 
+    public String getElementText(By locator) {
+        try {
+            WaitUtil.waitForElementToBeVisible(driver, locator);
+            return driver.findElement(locator).getText();
+        } catch (Exception e) {
+            LogUtil.error("Failed to get element text: " + locator);
+            throw new RuntimeException("get element text failed on: " + locator, e); // ❗Fail test
+        }
+    }
     // Select from dropdown by visible text
     public void selectByVisibleText(By locator, String visibleText) {
         WaitUtil.waitForElementToBeVisible(driver, locator);
@@ -60,11 +84,16 @@ public class SeleniumComponents {
     /**
      * force click
      */
-    public static void fireClick(By locator){
-        WebElement element= driver.findElement(locator);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
-    }
+    public static void fireClick(By locator) {
+        try {
+            WebElement element= driver.findElement(locator);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
 
+        } catch (Exception e) {
+            LogUtil.error("Failed to click element: " + locator);
+            throw new RuntimeException("click element failed on: " + locator, e); // ❗Fail test
+        }
+    }
 
     public void selectFromDropdown(By locator, String selectionType, String value){
         WaitUtil.waitForElementToBeVisible(driver, locator);
@@ -81,7 +110,7 @@ public class SeleniumComponents {
                 break;
 
             default:
-                throw new IllegalArgumentException("Inavlid selection type. use 'text', 'value' or 'index'." );
+                throw new IllegalArgumentException("Invalid selection type. use 'text', 'value' or 'index'." );
         }
     }
     //  Accept Alert

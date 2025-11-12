@@ -10,11 +10,20 @@ repositories {
 }
 apply from:'dependencies.gradle'
 
-test {
-    useJUnitPlatform()
+tasks.test {
+    useJUnitPlatform() // 👈 this line is CRUCIAL
+    testLogging {
+        events "passed", "failed", "skipped"
+    }
 }
 
-tasks.withType(Test).configureEach {
-    useJUnit()
-    systemProperty "cucumber.options", System.getProperty("cucumber.options", "")
-}
+//test {
+//    useJUnitPlatform()
+//    testLogging {
+//        events "passed", "failed", "skipped"
+//    }
+//}
+//tasks.withType(Test).configureEach {
+//    useJUnit()
+//    systemProperty "cucumber.options", System.getProperty("cucumber.options", "")
+//}

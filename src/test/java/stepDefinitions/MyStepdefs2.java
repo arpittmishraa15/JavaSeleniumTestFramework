@@ -20,4 +20,14 @@ public class MyStepdefs2 {
     public void userNavigateToMensTab() {
         new OrderPAge2().clickMensTab2();
     }
+
+    @Then("user click login tab")
+    public void userClickLoginTab() {
+        new OrderPAge2().ClickLogin();
+    }
+
+    @And("user click on number filed")
+    public void userClickOnNumberFiled() {
+        new OrderPAge2().phNO();
+    }
 }

@@ -1,24 +1,23 @@
 package runners;
 
+import org.junit.platform.suite.api.*;
 
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-import org.junit.runner.RunWith;
-
-
-@RunWith(Cucumber.class)
-@CucumberOptions(
-        features = "src/test/resources/features",
-        glue= "stepDefinitions",
-        tags= "@test",
-        plugin = {
-                "pretty",
-                "html:src/test/resources/cucumber-reports/index.html",
-                "json:src/test/resources/cucumber-reports/cucumber.json"
-        }
-
+@Suite
+@IncludeEngines("cucumber")
+@ConfigurationParameter(
+        key = io.cucumber.junit.platform.engine.Constants.FEATURES_PROPERTY_NAME,
+        value = "src/test/resources/features"
 )
-
-
+@ConfigurationParameter(
+        key = io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME,
+        value = "stepDefinitions"
+)
+@ConfigurationParameter( key = io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME,
+        value = "pretty, html:target/cucumber-reports/report.html, json:target/cucumber-reports/report.json")
+@ConfigurationParameter(
+        key = io.cucumber.junit.platform.engine.Constants.FILTER_TAGS_PROPERTY_NAME,
+        value = ""
+) // Tag you want to run
+//@ExtendWith(RetryExtension.class)
 public class TestRunner {
 }

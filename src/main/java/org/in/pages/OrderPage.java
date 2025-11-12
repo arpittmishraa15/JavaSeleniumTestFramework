@@ -13,7 +13,7 @@ public class OrderPage extends SeleniumComponents {
    private final By searchTab= By.name("q");
     private final By searchButton= By.xpath("//button[@class='MJG8Up']");
     private final By MensTab= By.xpath(  "(//span[@class='TSD49J'])[3]");
-//    private final By MensTab= By.xpath(  "//span[contains(text(), 'Men')]");
+
 
 
     public void clickMobile(){
