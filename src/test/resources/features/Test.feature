@@ -1,14 +1,15 @@
-Feature: Trying something Successfully
+Feature: UI Login Failure
 
 
-  @test
+  @test11222
   Scenario Outline: Successfully Login
     Given user navigate to URL
-    And user click mobile section
-    Then user navigates to search tab
-    When user searches for product "<product>"
-    And user  navigate to mens tab
+    When I send a GET request
+    Then user navigates to aboutUS tab
+    And user click home tab
+    When user types user name as "<user>" and password as "<user>"
+#    And user click products tab
 
     Examples:
-    |product|
-    |Monitor 27 inch|
+      | user  | user   |
+      | Arpit | Mishra |

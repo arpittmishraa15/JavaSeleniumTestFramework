@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.in.pages.APITesting;
 import org.in.pages.OrderPage;
 import org.in.utils.NavigationUtils;
 import org.junit.jupiter.api.Order;
@@ -16,23 +17,32 @@ public class TestStepdefs {
         NavigationUtils.navigateTo();
     }
 
-    @Then("user navigates to search tab")
-    public void userNavigatesToSearchTab() {
-        new OrderPage().GoToSearchTab();
+    @Then("user navigates to aboutUS tab")
+    public void userNavigatesToAboutUSTab() {
+        new OrderPage().clickAboutUS();
     }
 
-    @And("user click mobile section")
-    public void userClickMobileSection() {
-        new OrderPage().clickMobile();
+    @And("user click home tab")
+    public void userClickHomeTab() {
+        new OrderPage().clickHome();
+
     }
 
-    @When("user searches for product {string}")
-    public void userSearchesForProduct(String product) {
-        new OrderPage().searchMonitor(product);
+    @When("user types user name as {string} and password as {string}")
+    public void userTypesUserNameAsAndPasswordAs(String user, String pass) {
+        new OrderPage().loginUser(user, pass);
     }
 
-    @And("user  navigate to mens tab")
-    public void userNavigateToMensTab() {
-        new OrderPage().clickMensTab();
+
+
+    @When("user triggers GET API")
+    public void userTriggersGETAPI() {
+        APITesting.triggerGetAPI();
+    }
+
+    @When("user triggers POST API")
+    public void userTriggersPOSTAPI() {
+        APITesting.triggerPostAPI();
     }
 }
+

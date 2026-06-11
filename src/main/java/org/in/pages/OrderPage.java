@@ -9,52 +9,63 @@ import org.openqa.selenium.Keys;
 public class OrderPage extends SeleniumComponents {
 
 
-   private final By mobile= By.xpath("//img[@alt='Mobiles & Tablets']");
-   private final By searchTab= By.name("q");
-    private final By searchButton= By.xpath("//button[@class='MJG8Up']");
-    private final By MensTab= By.xpath(  "(//span[@class='TSD49J'])[3]");
-//    private final By MensTab= By.xpath(  "//span[contains(text(), 'Men')]");
+    private final By aboutUS = By.xpath("(//a[contains(text(),'About Us')])[1]");
+    private final By username = By.name("username");
+    private final By password = By.name("password");
+    private final By products = By.xpath("//a[contains(text(),'Products')]");
 
 
-    public void clickMobile(){
-        try{
-            APITesting.triggerGetAPI();
+    private final By home = By.xpath("//a[contains(text(),'home')]");
+    private final By loginBtn = By.xpath("///input[@value='Log In']");
+
+
+    public void clickAboutUS() {
+        try {
             explicitWait(5);
-            clickElement(mobile);
-            LogUtil.info("clicked mobile tab");
-        }catch(Exception e){
-            LogUtil.error("unable to click mobile tab");
-        }
-    }
-    public void GoToSearchTab(){
-        try{
-            explicitWait(5);
-            clickElement(searchTab);
-            LogUtil.info("clicked search tab");
-        }catch(Exception e){
-            LogUtil.error("unable to click search tab");
+            clickElement(aboutUS);
+            LogUtil.info("clicked aboutUS");
+        } catch (Exception e) {
+            LogUtil.error("unable to click aboutUS");
+            throw new RuntimeException("unable to click aboutUS: {}" + e.getMessage());
         }
     }
 
-    public void searchMonitor(String product){
-        try{
+    public void goToProductsTab() {
+        try {
             explicitWait(5);
-            sendKeysToElement(searchTab, product);
-            LogUtil.info("Entered data in search tab");
-//            sendKeysToElement(searchTab, String.valueOf(Keys.ENTER));
-            clickElement(searchButton);
+            clickElement(products);
+            LogUtil.info("clicked products tab");
+        } catch (Exception e) {
+            LogUtil.error("unable to click products tab");
+            throw new RuntimeException("unable to click products tab: {}" + e.getMessage());
+        }
+    }
+
+    public void clickHome() {
+        try {
+
+            clickElement(home);
+            LogUtil.info("navigate to home page");
             explicitWait(10);
-        }catch(Exception e){
-            LogUtil.error("unable Enter data in search tab");
+        } catch (Exception e) {
+            LogUtil.error("unable to navigate to home page");
+            throw new RuntimeException("unable to navigate to home page: {}" + e.getMessage());
         }
     }
-    public void clickMensTab(){
-        try{
+
+    public void loginUser(String user, String pass) {
+        try {
             explicitWait(5);
-            clickElement(MensTab);
-            LogUtil.info("clicked Mens tab");
-        }catch(Exception e){
-            LogUtil.error("unable to click Mens tab");
+            sendKeysToElement(username, user);
+            LogUtil.info("User sends username");
+            explicitWait(2);
+            sendKeysToElement(password, pass);
+            LogUtil.info("User sends password");
+            explicitWait(3);
+            clickElement(loginBtn);
+        } catch (Exception e) {
+            LogUtil.error("unable to send username and password");
+            throw new RuntimeException("unable to send username and password: {}" + e.getMessage());
         }
     }
 
