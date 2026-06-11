@@ -5,9 +5,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.in.pages.APITesting;
-import org.in.pages.OrderPage;
+import org.in.pages.LoginPage;
 import org.in.utils.NavigationUtils;
-import org.junit.jupiter.api.Order;
 
 public class TestStepdefs {
 
@@ -19,18 +18,18 @@ public class TestStepdefs {
 
     @Then("user navigates to aboutUS tab")
     public void userNavigatesToAboutUSTab() {
-        new OrderPage().clickAboutUS();
+        new LoginPage().clickAboutUS();
     }
 
     @And("user click home tab")
     public void userClickHomeTab() {
-        new OrderPage().clickHome();
+        new LoginPage().clickHome();
 
     }
 
     @When("user types user name as {string} and password as {string}")
     public void userTypesUserNameAsAndPasswordAs(String user, String pass) {
-        new OrderPage().loginUser(user, pass);
+        new LoginPage().loginUser(user, pass);
     }
 
 

@@ -1,12 +1,10 @@
 package org.in.pages;
 
 import org.in.base.SeleniumComponents;
-import org.in.utils.DriverFactory;
 import org.in.utils.LogUtil;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 
-public class OrderPage extends SeleniumComponents {
+public class LoginPage extends SeleniumComponents {
 
 
     private final By aboutUS = By.xpath("(//a[contains(text(),'About Us')])[1]");
