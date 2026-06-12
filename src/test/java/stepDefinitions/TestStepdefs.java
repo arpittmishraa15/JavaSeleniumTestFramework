@@ -43,5 +43,10 @@ public class TestStepdefs {
     public void userTriggersPOSTAPI() {
         APITesting.triggerPostAPI();
     }
+
+    @Then("user fetches error for login")
+    public void userFetchesErrorForLogin() {
+        new LoginPage().getError();
+    }
 }
 

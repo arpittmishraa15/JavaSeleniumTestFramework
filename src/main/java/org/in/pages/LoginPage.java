@@ -14,12 +14,12 @@ public class LoginPage extends SeleniumComponents {
 
 
     private final By home = By.xpath("//a[contains(text(),'home')]");
-    private final By loginBtn = By.xpath("///input[@value='Log In']");
-
+    private final By loginBtn = By.xpath("//input[@value='Log In']");
+    private final By error = By.xpath("//p[@class='error']");
 
     public void clickAboutUS() {
         try {
-            explicitWait(5);
+
             clickElement(aboutUS);
             LogUtil.info("clicked aboutUS");
         } catch (Exception e) {
@@ -53,18 +53,28 @@ public class LoginPage extends SeleniumComponents {
 
     public void loginUser(String user, String pass) {
         try {
-            explicitWait(5);
+
             sendKeysToElement(username, user);
             LogUtil.info("User sends username");
-            explicitWait(2);
             sendKeysToElement(password, pass);
             LogUtil.info("User sends password");
-            explicitWait(3);
             clickElement(loginBtn);
         } catch (Exception e) {
             LogUtil.error("unable to send username and password");
             throw new RuntimeException("unable to send username and password: {}" + e.getMessage());
         }
     }
+    public void getError() {
+        try {
+
+           String str= getElementText(error);
+            LogUtil.info("user fetches error string :{} "+str);
+            explicitWait(10);
+        } catch (Exception e) {
+            LogUtil.error("unable to fetch error string :{}");
+            throw new RuntimeException("unable to fetch error string :{}: {}" + e.getMessage());
+        }
+    }
+
 
 }
